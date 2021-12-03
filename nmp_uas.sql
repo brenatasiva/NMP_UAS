@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2021 at 12:26 PM
+-- Generation Time: Dec 03, 2021 at 12:37 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `histories` (
   `id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
-  `places_id` int(11) NOT NULL,
+  `places_id` varchar(55) NOT NULL,
   `checkin` datetime DEFAULT NULL,
   `checkout` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -43,9 +43,8 @@ CREATE TABLE `histories` (
 --
 
 CREATE TABLE `places` (
-  `id` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `code` varchar(4) NOT NULL
+  `id` varchar(4) NOT NULL,
+  `name` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -95,12 +94,6 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `histories`
 --
 ALTER TABLE `histories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `places`
---
-ALTER TABLE `places`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
