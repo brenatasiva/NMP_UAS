@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProtectCare51">
         <activity
+            android:name=".HistoryCard"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
