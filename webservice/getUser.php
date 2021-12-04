@@ -3,34 +3,26 @@ header("Access-Control-Allow-Origin:*");
 
 require_once 'koneksi.php';
 
-$conn->set_charset("utf8");
-
 extract($_POST);
 
-if (isset($getUser)) {
-    if (isset($password)) {
-        $sql = "SELECT username, name, vaccination FROM users WHERE username = ? AND password = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $username, $password);
-    } else {
-        $sql = "SELECT name, vaccination FROM users WHERE username = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-    }
-
-    if ($stmt->execute()) {
-        $res = $stmt->get_result();
-
-        while ($obj = $res->fetch_object()) {
-            $data[] = $obj;
-        }
-
-        $arr = array("result" => "OK", "data" => $data);
-    } else {
-        $arr = array("result" => "NG", "messages" => "Unable to login!");
-    }
+if (isset($password)) {
+    $sql = "SELECT username FROM users WHERE username = ? AND password = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $username, $password);
 } else {
-    $arr = array("result" => "NG", "messages" => "No checked command");
+    $sql = "SELECT name, vaccination FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
 }
+$stmt->execute();
+$res = $stmt->get_result();
+if ($res->num_rows > 0) {
+    $data = $res->fetch_assoc();
+
+    $arr = ["result" => "OK", "data" => $data];
+} else {
+    $arr = ["result" => "error", "messages" => "Unable to login!"];
+}
+
 
 echo json_encode($arr);
