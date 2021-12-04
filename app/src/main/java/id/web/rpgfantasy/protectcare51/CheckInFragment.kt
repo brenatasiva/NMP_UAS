@@ -37,65 +37,65 @@ class CheckInFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        var places:ArrayList<Place> = arrayListOf()
+//        var places:ArrayList<Place> = arrayListOf()
+//
+//        val q = Volley.newRequestQueue(context)
+//        val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
+//        val stringRequest = object: StringRequest(
+//            Request.Method.POST, url,
+//            Response.Listener {
+//                Log.d("cekparams", it)
+//                val obj = JSONObject(it)
+//                if(obj.getString("result") == "OK") {
+//                    val data = obj.getJSONObject("data")
+//                    for(i in 0 until data.length()) {
+//                        val obj = data.getJSONObject(i)
+//                        val place = Place(
+//                            obj.getString("id"),
+//                            obj.getString("name")
+//                        )
+//                        places.add(place)
+//                    }
+//                }
+//            },
+//            Response.ErrorListener {
+//                Log.d("cekparams", it.message.toString())
+//            }
+//        ){
+//            override fun getParams() = hashMapOf(
+//                "getPlaces" to "true"
+//            )
+//        }
+//        q.add(stringRequest)
 
-        val q = Volley.newRequestQueue(context)
-        val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
-        val stringRequest = object: StringRequest(
-            Request.Method.POST, url,
-            Response.Listener {
-                Log.d("cekparams", it)
-                val obj = JSONObject(it)
-                if(obj.getString("result") == "OK") {
-                    val data = obj.getJSONObject("data")
-                    for(i in 0 until data.length()) {
-                        val obj = data.getJSONObject(i)
-                        val place = Place(
-                            obj.getString("id"),
-                            obj.getString("name")
-                        )
-                        places.add(place)
-                    }
-                }
-            },
-            Response.ErrorListener {
-                Log.d("cekparams", it.message.toString())
-            }
-        ){
-            override fun getParams() = hashMapOf(
-                "getPlaces" to "true"
-            )
-        }
-        q.add(stringRequest)
 
 
+//        val adapter = ArrayAdapter(Context, android.R.layout.simple_list_item_1, places)
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinner.adapter = adapter
 
-        val adapter = ArrayAdapter(Context, android.R.layout.simple_list_item_1, places)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-
-        buttonCheckIn.setOnClickListener {
-            val q = Volley.newRequestQueue(context)
-            val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
-            val stringRequest = object: StringRequest(
-                Request.Method.POST, url,
-                Response.Listener {
-                    Log.d("cekparams", it)
-                },
-                Response.ErrorListener {
-                    Log.d("cekparams", it.message.toString())
-                }
-            ){
-                override fun getParams() = hashMapOf(
-                    "btnCheckIn" to "true",
-                    "code" to textInputEditCode.text.toString(),
-                    "placeName" to spinner.selectedItem.toString(),
-                    "username"
-                    "checkInDate"
-                )
-            }
-            q.add(stringRequest)
-        }
+//        buttonCheckIn.setOnClickListener {
+//            val q = Volley.newRequestQueue(context)
+//            val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
+//            val stringRequest = object: StringRequest(
+//                Request.Method.POST, url,
+//                Response.Listener {
+//                    Log.d("cekparams", it)
+//                },
+//                Response.ErrorListener {
+//                    Log.d("cekparams", it.message.toString())
+//                }
+//            ){
+//                override fun getParams() = hashMapOf(
+//                    "btnCheckIn" to "true",
+//                    "code" to textInputEditCode.text.toString(),
+//                    "placeName" to spinner.selectedItem.toString(),
+//                    "username"
+//                    "checkInDate"
+//                )
+//            }
+//            q.add(stringRequest)
+//        }
     }
 
     override fun onCreateView(

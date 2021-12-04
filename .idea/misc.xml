@@ -3,18 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/layout/activity_history_card.xml" value="0.24003623188405798" />
         <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/layout/activity_main.xml" value="0.24818840579710144" />
         <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/layout/fragment_check_in.xml" value="0.24818840579710144" />
         <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/layout/fragment_history.xml" value="0.2453125" />
         <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/layout/fragment_history_card.xml" value="0.2453125" />
         <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/layout/fragment_profile.xml" value="0.24818840579710144" />
-        <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/layout/history_card.xml" value="0.24003623188405798" />
         <entry key="..\:/KULIAH/Semester 5/Native Mobile Programming/UAS/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.259375" />
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/fragment_check_in.xml" value="0.2" />
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/fragment_history.xml" value="0.1539855072463768" />
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/fragment_profile.xml" value="0.176" />
+        <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/history_card.xml" value="0.19429347826086957" />
       </map>
     </option>
   </component>
