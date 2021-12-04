@@ -1,4 +1,4 @@
-package id.web.rpgfantasy.protectcarebillymario
+package id.web.rpgfantasy.protectcare51
 
 import org.junit.Test
 
