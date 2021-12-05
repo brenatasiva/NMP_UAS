@@ -25,9 +25,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME).toString()
+
+        val bundle = Bundle().apply {
+            putString("username",username)
+        }
+
+        val profileFragment = ProfileFragment()
+        profileFragment.arguments = bundle
+
         fragments.add(CheckInFragment())
         fragments.add(HistoryFragment())
-        fragments.add(ProfileFragment())
+        fragments.add(profileFragment)
 
         viewPager.adapter = Adapter(this, fragments)
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){

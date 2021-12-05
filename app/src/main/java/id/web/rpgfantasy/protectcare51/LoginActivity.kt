@@ -18,17 +18,19 @@ import org.json.JSONObject
 class LoginActivity : AppCompatActivity()
 {
     companion object{
-        val USERNAME = "USERNAME"
+        val EXTRA_USERNAME = "USERNAME"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         //retrive saved username
         var sharedFile = packageName
         var shared: SharedPreferences = getSharedPreferences(sharedFile, Context.MODE_PRIVATE)
-        var savedUsername = shared.getString(USERNAME, "")
+        var savedUsername = shared.getString(EXTRA_USERNAME, "")
 
         savedUsername?.let {
             if (it.isNotEmpty()){
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java).apply {
+                    putExtra(EXTRA_USERNAME,it)
+                })
                 finish()
             }
         }
@@ -50,9 +52,11 @@ class LoginActivity : AppCompatActivity()
             val obj = JSONObject(it)
             if(obj.getString("result") == "OK"){
                 var editor: SharedPreferences.Editor = shared.edit()
-                    editor.putString(USERNAME,username)
+                    editor.putString(EXTRA_USERNAME,username)
                     editor.apply()
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java).apply {
+                    putExtra(EXTRA_USERNAME,username)
+                })
                 finish()
             }
             else{
