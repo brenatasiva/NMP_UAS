@@ -45,6 +45,15 @@ class CheckInFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view:View = inflater.inflate(R.layout.fragment_check_in, container, false)
+
         var places:ArrayList<Place> = arrayListOf()
 
         val q = Volley.newRequestQueue(activity)
@@ -79,18 +88,10 @@ class CheckInFragment : Fragment() {
         }
         q.add(stringRequest)
 
-
-//        val adapter = ArrayAdapter(Context, android.R.layout.simple_list_item_1, places)
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinner.adapter = adapter
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view:View = inflater.inflate(R.layout.fragment_check_in, container, false)
+        val adapter = activity?.applicationContext?.let {
+            ArrayAdapter(it, android.R.layout.simple_list_item_1,places).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+        spinner.adapter = adapter
 
         view.buttonCheckIn.setOnClickListener {
             val q = Volley.newRequestQueue(activity)
@@ -99,7 +100,7 @@ class CheckInFragment : Fragment() {
                 Log.d("cek", it)
                 val obj = JSONObject(it)
                 if(obj.getString("result") == "OK"){
-                    Toast.makeText(activity, "oke", Toast.LENGTH_SHORT).show()
+
                 }
                 else{
                     Toast.makeText(activity, "ga oke", Toast.LENGTH_SHORT).show()
