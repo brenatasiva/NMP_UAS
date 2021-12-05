@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity()
 //                    editor.putString(USERNAME,username)
 //                    editor.apply()
                     startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 }
                 else{
                     Toast.makeText(this, "Username or password is wrong!", Toast.LENGTH_SHORT).show()

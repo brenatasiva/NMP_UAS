@@ -7,27 +7,33 @@ $conn->set_charset("utf8");
 
 extract($_POST);
 
-if (isset($get_check_out)) {
-    $query = "SELECT location.code, name, check_in, number_vaccine FROM history INNER JOIN location ON history.location_code = location.code WHERE username = ? AND check_out is NULL";
-    $stmt = $conn->prepare($query);
+if ($history) {
+    $sql = "SELECT id FROM users where username = ?";
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
-
     if ($stmt->execute()) {
         $res = $stmt->get_result();
-        $data = $res->fetch_assoc();
+        $row = $res->fetch_assoc();
+        $id = $row['id'];
 
-        $color = "#FEEA3B"; //kuning
-        if ($data['number_vaccine'] > 1) $color = "#9EDA58"; //hijau
+        $sql = "SELECT p.id, name, checkin, doses FROM histories h INNER JOIN places p ON h.places_id = p.id WHERE users_id = ? AND checkout is NULL";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
 
-        $data['bgColor'] = $color;
+        if ($stmt->execute()) {
+            $res = $stmt->get_result();
+            $data = $res->fetch_assoc();
 
-        $arr = array("result" => "OK", "status" => "success", "data" => $data);
-    } else {
-        $arr = array("result" => "NG", "messages" => "Unable to get check out!");
+            $data['color'] = ($data['doses'] > 1) ? "#9EDA58" : "#FEEA3B";
+
+            $arr = array("result" => "OK", "status" => "success", "data" => $data);
+        } else {
+            $arr = array("result" => "NG", "messages" => "Unable to get check out!");
+        }
     }
-} else if (isset($btncheck_out)) {
-    $query = "UPDATE history SET check_out = ? WHERE username = ? AND location_code = ? AND check_in = ?";
-    $stmt = $conn->prepare($query);
+} else if ($btnCheckOut) {
+    $sql = "UPDATE histories SET checkout = ? WHERE users_id = ? AND location_code = ? AND check_in = ?";
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssss", $checkout, $username, $loccode, $checkin);
 
     if ($stmt->execute()) {
