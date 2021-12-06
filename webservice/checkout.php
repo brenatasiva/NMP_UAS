@@ -7,34 +7,35 @@ $conn->set_charset("utf8");
 
 extract($_POST);
 
+$sql = "SELECT id FROM users where username = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $username);
+
+if ($stmt->execute()) {
+    $res = $stmt->get_result();
+    $row = $res->fetch_assoc();
+    $id = $row['id'];
+}
+
 if ($history) {
-    $sql = "SELECT id FROM users where username = ?";
+    $sql = "SELECT p.id, name, checkin, doses FROM histories h INNER JOIN places p ON h.places_id = p.id WHERE users_id = ? AND checkout is NULL";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
+    $stmt->bind_param("i", $id);
+
     if ($stmt->execute()) {
         $res = $stmt->get_result();
-        $row = $res->fetch_assoc();
-        $id = $row['id'];
+        $data = $res->fetch_assoc();
 
-        $sql = "SELECT p.id, name, checkin, doses FROM histories h INNER JOIN places p ON h.places_id = p.id WHERE users_id = ? AND checkout is NULL";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
+        $data['color'] = ($data['doses'] > 1) ? "#9EDA58" : "#FEEA3B";
 
-        if ($stmt->execute()) {
-            $res = $stmt->get_result();
-            $data = $res->fetch_assoc();
-
-            $data['color'] = ($data['doses'] > 1) ? "#9EDA58" : "#FEEA3B";
-
-            $arr = array("result" => "OK", "status" => "success", "data" => $data);
-        } else {
-            $arr = array("result" => "NG", "messages" => "Unable to get check out!");
-        }
+        $arr = array("result" => "OK", "status" => "success", "data" => $data);
+    } else {
+        $arr = array("result" => "NG", "messages" => "Unable to get check out!");
     }
 } else if ($btnCheckOut) {
-    $sql = "UPDATE histories SET checkout = ? WHERE users_id = ? AND location_code = ? AND check_in = ?";
+    $sql = "UPDATE histories SET checkout = ? WHERE users_id = ? AND places_code = ? AND checkin = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $checkout, $username, $loccode, $checkin);
+    $stmt->bind_param("ssss", $checkOutDate, $id, $code, $checkInDate);
 
     if ($stmt->execute()) {
 

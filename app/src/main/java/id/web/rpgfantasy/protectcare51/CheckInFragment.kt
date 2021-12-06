@@ -38,6 +38,7 @@ class CheckInFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var places:ArrayList<Place> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +46,7 @@ class CheckInFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view:View = inflater.inflate(R.layout.fragment_check_in, container, false)
-
-        var places:ArrayList<Place> = arrayListOf()
 
         val q = Volley.newRequestQueue(activity)
         val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
@@ -87,11 +79,20 @@ class CheckInFragment : Fragment() {
             }
         }
         q.add(stringRequest)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view:View = inflater.inflate(R.layout.fragment_check_in, container, false)
 
         val adapter = activity?.applicationContext?.let {
-            ArrayAdapter(it, android.R.layout.simple_list_item_1,places).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        ArrayAdapter(it, android.R.layout.simple_list_item_1, places).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
-        spinner.adapter = adapter
+
+        view.spinner.adapter
 
         view.buttonCheckIn.setOnClickListener {
             val q = Volley.newRequestQueue(activity)
@@ -101,6 +102,8 @@ class CheckInFragment : Fragment() {
                 val obj = JSONObject(it)
                 if(obj.getString("result") == "OK"){
 
+                    MainActivity.fragments[0] = CheckOutFragment()
+                    (activity as MainActivity).adapterUpdate()
                 }
                 else{
                     Toast.makeText(activity, "ga oke", Toast.LENGTH_SHORT).show()
@@ -116,13 +119,11 @@ class CheckInFragment : Fragment() {
                     params["username"] = "brenatasiva"
                     params["code"] = textInputEditCode.text.toString()
                     params["placeName"] = "Ubaya"
-                    params["checkInDate"] = SimpleDateFormat("dd MMMM yyyy hh:mm").format(Date()).toString()
                     return params
                 }
             }
             q.add(stringRequest)
         }
-
         return view
     }
 

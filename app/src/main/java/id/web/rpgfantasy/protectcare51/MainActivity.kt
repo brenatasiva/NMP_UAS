@@ -20,16 +20,24 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
-    val fragments: ArrayList<Fragment> = ArrayList()
+    companion object{
+        val fragments: ArrayList<Fragment> = arrayListOf(
+            CheckInFragment(),
+            HistoryFragment(),
+            ProfileFragment()
+        )
+    }
+
+    fun adapterUpdate(){
+        viewPager.adapter = Adapter(this, fragments)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fragments.add(CheckInFragment())
-        fragments.add(HistoryFragment())
-        fragments.add(ProfileFragment())
+        adapterUpdate()
 
-        viewPager.adapter = Adapter(this, fragments)
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 bottomNav.selectedItemId = bottomNav.menu.getItem(position).itemId
@@ -44,35 +52,5 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-//        buttonCheckIn.setOnClickListener {
-//            val q = Volley.newRequestQueue(this)
-//            val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
-//            val stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
-//                Log.d("cek", it)
-//                val obj = JSONObject(it)
-//                if(obj.getString("result") == "OK"){
-//                    startActivity(Intent(this, CheckOutActivity::class.java))
-//
-//                }else{
-//                    Toast.makeText(this, "ga oke", Toast.LENGTH_SHORT).show()
-//                }
-//
-//            }, Response.ErrorListener {
-//                Log.d("message", it.message.toString())
-//            })
-//            {
-//                override fun getParams(): MutableMap<String, String> {
-//                    val params = HashMap<String, String>()
-//                    params["btnCheckIn"] = "true"
-//                    params["username"] = "brenatasiva"
-//                    params["code"] = textInputEditCode.text.toString()
-//                    params["placeName"] = "Ubaya"
-//                    params["checkInDate"] = SimpleDateFormat("dd MMMM yyyy hh:mm").format(Date()).toString()
-//                    return params
-//                }
-//            }
-//            q.add(stringRequest)
-//        }
     }
 }
