@@ -1,6 +1,8 @@
 package id.web.rpgfantasy.protectcare51
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +30,10 @@ class MainActivity : AppCompatActivity() {
         )
         val EXTRA_USERNAME = "EXTRA_USERNAME"
         var username = ""
+        var checkInDate = 0
+        var code = ""
+        var dose = 0
+        var place = ""
     }
 
     fun adapterUpdate(){
@@ -37,8 +43,42 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        adapterUpdate()
+
         username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME).toString()
+
+        val q = Volley.newRequestQueue(this)
+        val url = "https://ubaya.fun/native/160419091/ProtectCare51/getStatus.php"
+        var stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
+            Log.d("cek", it)
+            val obj = JSONObject(it)
+            if(obj.getString("result") == "OK"){
+                val objData = obj.getJSONObject("data")
+                code = objData.getString("places_id")
+                checkInDate = objData.getInt("checkin")
+                dose = objData.getInt("doses")
+                place = objData.getString("name")
+
+                fragments[0] = CheckOutFragment()
+                adapterUpdate()
+            }
+            else{
+                fragments[0] = CheckInFragment()
+                adapterUpdate()
+            }
+
+        },Response.ErrorListener {
+
+        })
+        {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["username"] = username
+                return params
+            }
+        }
+        q.add(stringRequest)
+
+
 
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {

@@ -5,6 +5,9 @@ require_once 'koneksi.php';
 
 $conn->set_charset("utf8");
 
+date_default_timezone_set("Asia/Jakarta");
+$checkOutDate = date_create('now')->format('Y-m-d H:i:s');
+
 extract($_POST);
 
 $sql = "SELECT id FROM users where username = ?";
