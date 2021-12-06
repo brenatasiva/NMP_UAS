@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
             HistoryFragment(),
             ProfileFragment()
         )
+        val EXTRA_USERNAME = "EXTRA_USERNAME"
+        var username = ""
     }
 
     fun adapterUpdate(){
@@ -35,8 +37,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         adapterUpdate()
+        username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME).toString()
 
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {

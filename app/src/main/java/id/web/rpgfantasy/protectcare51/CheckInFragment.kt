@@ -43,8 +43,6 @@ class CheckInFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
 
 
@@ -88,11 +86,10 @@ class CheckInFragment : Fragment() {
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_check_in, container, false)
 
-        val adapter = activity?.applicationContext?.let {
-        ArrayAdapter(it, android.R.layout.simple_list_item_1, places).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
-
-        view.spinner.adapter
+//        val adapter = activity?.applicationContext?.let {
+//            ArrayAdapter(it, android.R.layout.simple_list_item_1,places).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        }
+//        spinner.adapter = adapter
 
         view.buttonCheckIn.setOnClickListener {
             val q = Volley.newRequestQueue(activity)
@@ -128,21 +125,11 @@ class CheckInFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CheckInFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             CheckInFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
     }

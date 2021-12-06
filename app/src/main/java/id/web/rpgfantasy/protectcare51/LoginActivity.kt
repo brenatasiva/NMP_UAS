@@ -17,48 +17,66 @@ import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity()
 {
-    val USERNAME = "USERNAME"
+    companion object{
+        val EXTRA_USERNAME = "USERNAME"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
+        //retrive saved username
+        var sharedFile = packageName
+        var shared: SharedPreferences = getSharedPreferences(sharedFile, Context.MODE_PRIVATE)
+        var savedUsername = shared.getString(EXTRA_USERNAME, "")
+
+        savedUsername?.let {
+            if (it.isNotEmpty()){
+                startActivity(Intent(this, MainActivity::class.java).apply {
+                    putExtra(EXTRA_USERNAME,it)
+                })
+                finish()
+            }
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        //retrive saved History
-//        var sharedFile = packageName
-//        var shared: SharedPreferences = getSharedPreferences(sharedFile, Context.MODE_PRIVATE)
-//        var savedUsername = shared.getString(USERNAME, "")
-
         buttonLogin.setOnClickListener {
-            val q = Volley.newRequestQueue(this)
-            val url = "https://ubaya.fun/native/160419091/ProtectCare51/getUser.php"
-            val stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
-                Log.d("cek", it)
-                val obj = JSONObject(it)
-                if(obj.getString("result") == "OK"){
-                    val objData = obj.getJSONObject("data")
-                    val username = objData.getString("username")
-//                    var editor: SharedPreferences.Editor = shared.edit()
-//                    editor.putString(USERNAME,username)
-//                    editor.apply()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }
-                else{
-                    Toast.makeText(this, "Username or password is wrong!", Toast.LENGTH_SHORT).show()
-                }
-
-            },Response.ErrorListener {
-                Toast.makeText(this, "${it.message.toString()}", Toast.LENGTH_SHORT).show()
-            })
-            {
-                override fun getParams(): MutableMap<String, String> {
-                    val params = HashMap<String, String>()
-                    params["username"] = txtUsername.text.toString()
-                    params["password"] = txtPassword.text.toString()
-                    return params
-                }
-            }
-            q.add(stringRequest)
+            val username = txtUsername.text.toString()
+            val password = txtPassword.text.toString()
+            Login(username, password,shared)
         }
+    }
+
+    fun Login(username:String, password:String?, shared:SharedPreferences){
+        val q = Volley.newRequestQueue(this)
+        val url = "https://ubaya.fun/native/160419091/ProtectCare51/getUser.php"
+        val stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
+            Log.d("cek", it)
+            val obj = JSONObject(it)
+            if(obj.getString("result") == "OK"){
+                var editor: SharedPreferences.Editor = shared.edit()
+                    editor.putString(EXTRA_USERNAME,username)
+                    editor.apply()
+                startActivity(Intent(this, MainActivity::class.java).apply {
+                    putExtra(EXTRA_USERNAME,username)
+                })
+                finish()
+            }
+            else{
+                Toast.makeText(this, "Username or password is wrong!", Toast.LENGTH_SHORT).show()
+            }
+
+        },Response.ErrorListener {
+            Toast.makeText(this, "${it.message.toString()}", Toast.LENGTH_SHORT).show()
+        })
+        {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["username"] = username
+                password?.let {
+                    params["password"] = it
+                }
+                return params
+            }
+        }
+        q.add(stringRequest)
     }
 }
 
