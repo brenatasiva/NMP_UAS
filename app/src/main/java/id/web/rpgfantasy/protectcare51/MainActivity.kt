@@ -20,23 +20,20 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        val EXTRA_USERNAME = "EXTRA_USERNAME"
+        var username = ""
+    }
     val fragments: ArrayList<Fragment> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME).toString()
-
-        val bundle = Bundle().apply {
-            putString("username",username)
-        }
-
-        val profileFragment = ProfileFragment()
-        profileFragment.arguments = bundle
+        username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME).toString()
 
         fragments.add(CheckInFragment())
         fragments.add(HistoryFragment())
-        fragments.add(profileFragment)
+        fragments.add(ProfileFragment())
 
         viewPager.adapter = Adapter(this, fragments)
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){

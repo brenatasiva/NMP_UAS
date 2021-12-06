@@ -29,7 +29,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val username:String? = arguments?.getString("username")
+        val username:String? = MainActivity.username
 
         val q = Volley.newRequestQueue(activity)
         val url = "https://ubaya.fun/native/160419091/ProtectCare51/getUser.php"
@@ -76,22 +76,19 @@ class ProfileFragment : Fragment() {
         val fab = v?.findViewById<FloatingActionButton>(R.id.fab)
         fab?.let {
             it.setOnClickListener {
-                activity?.startActivity(Intent(activity,MainActivity::class.java))
+                val username = ""
+                var sharedFile = activity?.packageName
+                var shared: SharedPreferences? = activity?.getSharedPreferences(sharedFile, Context.MODE_PRIVATE)
+                var editor: SharedPreferences.Editor? = shared?.edit()
+                editor?.putString(LoginActivity.EXTRA_USERNAME,username)
+                editor?.apply()
+                activity?.startActivity(Intent(activity,LoginActivity::class.java))
                 activity?.finish()
                 }
         }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ProfileFragment().apply {
