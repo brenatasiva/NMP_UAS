@@ -39,9 +39,9 @@ class CheckOutFragment : Fragment() {
         view.textViewCheckOutTimeCheckIn.text = "${dateCheckin}"
 
         if(MainActivity.dose > 1){
-            view.cardViewCheckOut.setCardBackgroundColor(Color.parseColor("#00FF00"))
+            view.cardViewCheckOut.setCardBackgroundColor(Color.parseColor("#8BC34A"))
         }else{
-            view.cardViewCheckOut.setCardBackgroundColor(Color.parseColor("#FFFF00"))
+            view.cardViewCheckOut.setCardBackgroundColor(Color.parseColor("#FFEB3A"))
         }
 
         view.buttonCheckOut.setOnClickListener {

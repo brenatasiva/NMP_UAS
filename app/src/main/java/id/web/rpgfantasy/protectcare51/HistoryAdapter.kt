@@ -36,9 +36,9 @@ class HistoryAdapter(): RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>()
                 textViewCheckOut.text = dateCheckout
             }
             if (history.vaccine == 2)
-                cardViewHistory.setCardBackgroundColor(Color.parseColor("#00ff00"))
+                cardViewHistory.setCardBackgroundColor(Color.parseColor("#8BC34A"))
             else if (history.vaccine == 1)
-                cardViewHistory.setCardBackgroundColor(Color.parseColor("#ffff00"))
+                cardViewHistory.setCardBackgroundColor(Color.parseColor("#FFEB3A"))
         }
     }
 
