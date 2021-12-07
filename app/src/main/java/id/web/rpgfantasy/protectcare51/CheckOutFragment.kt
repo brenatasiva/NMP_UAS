@@ -36,7 +36,7 @@ class CheckOutFragment : Fragment() {
         val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm")
         var date = Date((MainActivity.checkInDate.toString()).toLong() * 1000)
         var dateCheckin = formatter.format(date)
-        view.textViewCheckOutTimeCheckIn.text = "Check in time : ${dateCheckin}"
+        view.textViewCheckOutTimeCheckIn.text = "${dateCheckin}"
 
         if(MainActivity.dose > 1){
             view.cardViewCheckOut.setCardBackgroundColor(Color.parseColor("#00FF00"))
