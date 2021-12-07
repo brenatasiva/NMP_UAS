@@ -56,42 +56,51 @@ class CheckInFragment : Fragment() {
         spinner.adapter = adapter
 
         buttonCheckIn.setOnClickListener {
-            val q = Volley.newRequestQueue(activity)
-            val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
-            val stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
-                Log.d("cek", it)
-                val obj = JSONObject(it)
-                if(obj.getString("result") == "OK"){
-                    val objData = obj.getJSONObject("data")
-                    MainActivity.code = textInputEditCode.text.toString()
-                    MainActivity.checkInDate = objData.getInt("checkin")
-                    MainActivity.dose = objData.getInt("doses")
-                    MainActivity.place = GlobalData.places[spinner.selectedItemPosition].name
+            if(textInputEditCode.length() == 4){
+                val q = Volley.newRequestQueue(activity)
+                val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
+                val stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
+                    Log.d("cek", it)
+                    val obj = JSONObject(it)
+                    if(obj.getString("result") == "OK"){
+                        val objData = obj.getJSONObject("data")
+                        MainActivity.code = textInputEditCode.text.toString()
+                        MainActivity.checkInDate = objData.getInt("checkin")
+                        MainActivity.dose = objData.getInt("doses")
+                        MainActivity.place = GlobalData.places[spinner.selectedItemPosition].name
 
-                    MainActivity.fragments[0] = CheckOutFragment()
-                    (activity as MainActivity).adapterUpdate()
-                }
-                else{
-                    val alert = activity?.let { it1 -> AlertDialog.Builder(it1) }
-                    alert?.setTitle("ALERT!")
-                    alert?.setMessage("Code does not match!")
-                    alert?.setPositiveButton("OK") { _,_ ->}
-                    alert?.show()
-                }
+                        MainActivity.fragments[0] = CheckOutFragment()
+                        (activity as MainActivity).adapterUpdate()
+                    }
+                    else{
+                        val alert = activity?.let { it1 -> AlertDialog.Builder(it1) }
+                        alert?.setTitle("ALERT!")
+                        alert?.setMessage("Code does not match!")
+                        alert?.setPositiveButton("OK") { _,_ ->}
+                        alert?.show()
+                    }
 
-            },Response.ErrorListener {
-                Log.d("message", it.message.toString())
-            })
-            {
-                override fun getParams(): MutableMap<String, String> {
-                    val params = HashMap<String, String>()
-                    params["username"] = MainActivity.username
-                    params["code"] = textInputEditCode.text.toString()
-                    params["placeName"] = GlobalData.places[spinner.selectedItemPosition].name
-                    return params
+                },Response.ErrorListener {
+                    Log.d("message", it.message.toString())
+                })
+                {
+                    override fun getParams(): MutableMap<String, String> {
+                        val params = HashMap<String, String>()
+                        params["username"] = MainActivity.username
+                        params["code"] = textInputEditCode.text.toString()
+                        params["placeName"] = GlobalData.places[spinner.selectedItemPosition].name
+                        return params
+                    }
                 }
+                q.add(stringRequest)
+            }else{
+                val alert = activity?.let { it1 -> AlertDialog.Builder(it1) }
+                alert?.setTitle("ALERT!")
+                alert?.setMessage("Code must be 4 in length")
+                alert?.setPositiveButton("OK") { _,_ ->}
+                alert?.show()
             }
-            q.add(stringRequest)
+
         }
     }
 
