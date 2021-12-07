@@ -32,8 +32,8 @@
             android:text="Textname"
             android:textAppearance="@style/body"
             android:textColor="@color/plight"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/textViewProfileDoses"
@@ -44,8 +44,8 @@
             android:text="TextView"
             android:textAppearance="@style/body"
             android:textColor="@color/plight"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="@+id/textView5" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/textView5" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabLogout"

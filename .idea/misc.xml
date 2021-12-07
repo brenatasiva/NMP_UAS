@@ -18,7 +18,11 @@
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/activity_main.xml" value="0.22735507246376813" />
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/fragment_check_in.xml" value="0.2" />
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/fragment_history.xml" value="0.264" />
+<<<<<<< HEAD
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/fragment_profile.xml" value="0.176" />
+=======
+        <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/fragment_profile.xml" value="0.42397914856646396" />
+>>>>>>> 35576d12d8d5ff12b9a7fd225cb876c0dab5f19b
         <entry key="..\:/Perkuliahan/smt5/NMP/ProjectUAS/NMP_UAS/app/src/main/res/layout/history_card.xml" value="0.4" />
       </map>
     </option>
