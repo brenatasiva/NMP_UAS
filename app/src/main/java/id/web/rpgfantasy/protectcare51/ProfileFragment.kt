@@ -38,11 +38,8 @@ class ProfileFragment : Fragment() {
             val obj = JSONObject(it)
             if(obj.getString("result") == "OK"){
                 val objData = obj.getJSONObject("data")
-                textViewProfileName.text = "Name : " + objData.getString("name")
-                textViewProfileDoses.text = "Number of vaccination doses : " + objData.getString("vaccination")
-            }
-            else{
-
+                textViewProfileName.text = objData.getString("name")
+                textViewProfileDoses.text = objData.getString("vaccination")
             }
 
         },Response.ErrorListener {

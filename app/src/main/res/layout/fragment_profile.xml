@@ -15,31 +15,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/rubik_bold"
             android:text="Profile"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textAppearance="@style/heading1"
+            android:textColor="@color/blue700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewProfileName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitleProfile" />
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/karla"
+            android:text="Textname"
+            android:textAppearance="@style/body"
+            android:textColor="@color/plight"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/textViewProfileDoses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/karla"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewProfileName" />
+            android:textAppearance="@style/body"
+            android:textColor="@color/plight"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -47,16 +53,38 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/teal_200"
             android:clickable="true"
             android:src="@drawable/ic_baseline_login_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@color/sdark" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/karla"
+            android:text="Name : "
+            android:textAppearance="@style/subtitle"
+            android:textColor="@color/pdark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitleProfile" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/karla"
+            android:text="Number of vaccination : "
+            android:textAppearance="@style/subtitle"
+            android:textColor="@color/pdark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ScrollView>
 
 </FrameLayout>

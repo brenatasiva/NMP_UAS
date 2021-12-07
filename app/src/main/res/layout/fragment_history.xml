@@ -15,8 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/rubik_bold"
             android:text="History"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textAppearance="@style/heading1"
+            android:textColor="@color/blue700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

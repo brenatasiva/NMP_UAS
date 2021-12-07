@@ -31,8 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/rubik_bold"
                 android:text="UNIVERSITAS SURABAYA"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/subtitle"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +43,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/karla"
                 android:text="Check In : Monday, 2021-11-01 10:12"
+                android:textAppearance="@style/body"
                 app:layout_constraintStart_toStartOf="@+id/textViewPlace"
                 app:layout_constraintTop_toBottomOf="@+id/textViewPlace" />
 
@@ -52,7 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="24dp"
+                android:fontFamily="@font/karla"
                 android:text="Check Out : Monday, 2021-11-01 18:55"
+                android:textAppearance="@style/body"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textViewCheckIn"
                 app:layout_constraintTop_toBottomOf="@+id/textViewCheckIn" />

@@ -13,6 +13,8 @@
         android:layout_marginTop="128dp"
         android:fontFamily="@font/rubik"
         android:text="ProtectCare"
+        android:textAppearance="@style/heading1"
+        android:textColor="@color/pdark"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/karla"
         android:text="Protect yourself, care for others"
+        android:textAppearance="@style/body"
+        android:textColor="@color/plight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -70,6 +75,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/rubik"
         android:text="Login"
+        android:textColor="@color/slight"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />

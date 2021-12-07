@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Check In"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                android:textAppearance="@style/heading1"
+                android:textColor="@color/blue700"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +36,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="Where to check in?"
+                android:textColor="@color/plight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
@@ -77,6 +79,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Ask the security officers where you want to check in fot the unique code. The unique code consists of 4 numbers."
+                android:textColor="@color/pdark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
@@ -89,6 +92,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Check In"
+                android:textColor="@color/slight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSubtext" />
