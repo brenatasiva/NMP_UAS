@@ -1,11 +1,14 @@
 package id.web.rpgfantasy.protectcare51
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.history_card.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HistoryAdapter(): RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
     class HistoryViewHolder(val view: View):RecyclerView.ViewHolder(view)
@@ -17,15 +20,25 @@ class HistoryAdapter(): RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>()
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val history = GlobalData.history[position]
+        val history = GlobalData.history[itemCount - position - 1]
         with(holder.view){
             textViewPlace.text = history.location
-            textViewCheckIn.text = history.checkin
-            textViewCheckOut.text = history.checkout
+            val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm")
+            var date = Date((history.checkin).toLong() * 1000)
+            var dateCheckin = formatter.format(date)
+            textViewCheckIn.text = dateCheckin
+            if (history.checkout == "0"){
+                textViewCheckOut.text = "Not yet checked out"
+            }
+            else{
+                date = Date((history.checkout).toLong() * 1000)
+                val dateCheckout = formatter.format(date)
+                textViewCheckOut.text = dateCheckout
+            }
             if (history.vaccine == 2)
-                cardView.setBackgroundColor(Color.parseColor("#00ff00"))
-            else
-                cardView.setCardBackgroundColor(Color.parseColor("ffff00"))
+                cardViewHistory.setCardBackgroundColor(Color.parseColor("#00ff00"))
+            else if (history.vaccine == 1)
+                cardViewHistory.setCardBackgroundColor(Color.parseColor("#ffff00"))
         }
     }
 

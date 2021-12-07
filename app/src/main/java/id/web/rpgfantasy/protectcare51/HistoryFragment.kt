@@ -12,6 +12,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_history.*
 import org.json.JSONObject
 import kotlinx.android.synthetic.main.fragment_history.view.*
 
@@ -24,6 +25,7 @@ class HistoryFragment : Fragment() {
     var histories:ArrayList<History> = GlobalData.history
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GlobalData.history.clear()
         val q = Volley.newRequestQueue(activity)
         val url = "https://ubaya.fun/native/160419091/ProtectCare51/getHistory.php"
         var stringRequest = object : StringRequest(
@@ -55,7 +57,7 @@ class HistoryFragment : Fragment() {
         ){
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()
-                params["username"] = txtUsername.text.toString()
+                params["username"] = MainActivity.username
                 return params
             }
         }
@@ -69,6 +71,11 @@ class HistoryFragment : Fragment() {
             it.setHasFixedSize(true)
             it.adapter = HistoryAdapter()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        historyRecyclerView.adapter?.notifyDataSetChanged()
     }
 
     override fun onCreateView(

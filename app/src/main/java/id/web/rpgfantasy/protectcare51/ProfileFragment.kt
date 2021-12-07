@@ -82,6 +82,7 @@ class ProfileFragment : Fragment() {
                 var editor: SharedPreferences.Editor? = shared?.edit()
                 editor?.putString(LoginActivity.EXTRA_USERNAME,username)
                 editor?.apply()
+                GlobalData.history.clear()
                 activity?.startActivity(Intent(activity,LoginActivity::class.java))
                 activity?.finish()
                 }
