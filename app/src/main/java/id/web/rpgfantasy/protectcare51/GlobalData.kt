@@ -4,4 +4,5 @@ object GlobalData {
     val history: ArrayList<History> = arrayListOf(
 
     )
+    var places:ArrayList<Place> = arrayListOf()
 }
