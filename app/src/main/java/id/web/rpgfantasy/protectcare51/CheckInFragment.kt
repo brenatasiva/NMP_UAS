@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
@@ -71,7 +72,11 @@ class CheckInFragment : Fragment() {
                     (activity as MainActivity).adapterUpdate()
                 }
                 else{
-                    Toast.makeText(activity, "ga oke", Toast.LENGTH_SHORT).show()
+                    val alert = activity?.let { it1 -> AlertDialog.Builder(it1) }
+                    alert?.setTitle("ALERT!")
+                    alert?.setMessage("Code does not match!")
+                    alert?.setPositiveButton("OK") { _,_ ->}
+                    alert?.show()
                 }
 
             },Response.ErrorListener {
