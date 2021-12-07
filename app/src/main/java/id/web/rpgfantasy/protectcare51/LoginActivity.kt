@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -61,7 +62,11 @@ class LoginActivity : AppCompatActivity()
                 finish()
             }
             else{
-                Toast.makeText(this, "Username or password is wrong!", Toast.LENGTH_SHORT).show()
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle("ALERT!")
+                alert.setMessage("Username or password does not match out database")
+                alert.setPositiveButton("OK") { _,_ ->}
+                alert.show()
             }
 
         },Response.ErrorListener {

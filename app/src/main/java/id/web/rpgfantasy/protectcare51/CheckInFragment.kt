@@ -75,7 +75,7 @@ class CheckInFragment : Fragment() {
                     else{
                         val alert = activity?.let { it1 -> AlertDialog.Builder(it1) }
                         alert?.setTitle("ALERT!")
-                        alert?.setMessage("Code does not match!")
+                        alert?.setMessage("Code does not match our database")
                         alert?.setPositiveButton("OK") { _,_ ->}
                         alert?.show()
                     }
