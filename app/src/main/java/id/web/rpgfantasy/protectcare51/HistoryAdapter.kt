@@ -20,7 +20,7 @@ class HistoryAdapter(): RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>()
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val history = GlobalData.history[itemCount - position - 1]
+        val history = GlobalData.history[position]
         with(holder.view){
             textViewPlace.text = history.location
             val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm")

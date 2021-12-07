@@ -28,7 +28,6 @@ import kotlin.collections.HashMap
 
 
 class CheckInFragment : Fragment() {
-    private var places:ArrayList<Place> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,79 +40,53 @@ class CheckInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_check_in, container, false).apply{
+        var view:View = inflater.inflate(R.layout.fragment_check_in, container, false)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = activity?.applicationContext?.let {
+            ArrayAdapter(it, android.R.layout.simple_list_item_1, GlobalData.places)
+        }
+        adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        buttonCheckIn.setOnClickListener {
             val q = Volley.newRequestQueue(activity)
-            val url = "https://ubaya.fun/native/160419091/ProtectCare51/getPlaces.php"
-            var stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
+            val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
+            val stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
                 Log.d("cek", it)
                 val obj = JSONObject(it)
                 if(obj.getString("result") == "OK"){
-                    val objData = obj.getJSONArray("data")
-                    for(i in 0 until objData.length()) {
-                        val obj = objData.getJSONObject(i)
-                        val place = Place(
-                            obj.getString("id"),
-                            obj.getString("name")
-                        )
-                        GlobalData.places.add(place)
-                    }
+                    val objData = obj.getJSONObject("data")
+                    MainActivity.code = textInputEditCode.text.toString()
+                    MainActivity.checkInDate = objData.getInt("checkin")
+                    MainActivity.dose = objData.getInt("doses")
+                    MainActivity.place = GlobalData.places[spinner.selectedItemPosition].name
+
+                    MainActivity.fragments[0] = CheckOutFragment()
+                    (activity as MainActivity).adapterUpdate()
                 }
                 else{
-
+                    Toast.makeText(activity, "ga oke", Toast.LENGTH_SHORT).show()
                 }
 
             },Response.ErrorListener {
-
+                Log.d("message", it.message.toString())
             })
             {
                 override fun getParams(): MutableMap<String, String> {
                     val params = HashMap<String, String>()
-
+                    params["username"] = MainActivity.username
+                    params["code"] = textInputEditCode.text.toString()
+                    params["placeName"] = GlobalData.places[spinner.selectedItemPosition].name
                     return params
                 }
             }
             q.add(stringRequest)
-
-            val adapter = activity?.applicationContext?.let {
-                ArrayAdapter(it, android.R.layout.simple_list_item_1, GlobalData.places)
-            }
-            adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-
-            buttonCheckIn.setOnClickListener {
-                val q = Volley.newRequestQueue(activity)
-                val url = "https://ubaya.fun/native/160419091/ProtectCare51/checkin.php"
-                val stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
-                    Log.d("cek", it)
-                    val obj = JSONObject(it)
-                    if(obj.getString("result") == "OK"){
-                        val objData = obj.getJSONObject("data")
-                        MainActivity.code = textInputEditCode.text.toString()
-                        MainActivity.checkInDate = objData.getInt("checkin")
-                        MainActivity.dose = objData.getInt("doses")
-                        MainActivity.place = places[spinner.selectedItemPosition].name
-
-                        MainActivity.fragments[0] = CheckOutFragment()
-                        (activity as MainActivity).adapterUpdate()
-                    }
-                    else{
-                        Toast.makeText(activity, "ga oke", Toast.LENGTH_SHORT).show()
-                    }
-
-                },Response.ErrorListener {
-                    Log.d("message", it.message.toString())
-                })
-                {
-                    override fun getParams(): MutableMap<String, String> {
-                        val params = HashMap<String, String>()
-                        params["username"] = MainActivity.username
-                        params["code"] = textInputEditCode.text.toString()
-                        params["placeName"] = places[spinner.selectedItemPosition].name
-                        return params
-                    }
-                }
-                q.add(stringRequest)
-            }
         }
     }
 

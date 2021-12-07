@@ -44,6 +44,40 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if(GlobalData.places.isNullOrEmpty()){
+            val q = Volley.newRequestQueue(this)
+            val url = "https://ubaya.fun/native/160419091/ProtectCare51/getPlaces.php"
+            var stringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener {
+                Log.d("cek", it)
+                val obj = JSONObject(it)
+                if(obj.getString("result") == "OK"){
+                    val objData = obj.getJSONArray("data")
+                    for(i in 0 until objData.length()) {
+                        val obj = objData.getJSONObject(i)
+                        val place = Place(
+                            obj.getString("id"),
+                            obj.getString("name")
+                        )
+                        GlobalData.places.add(place)
+                    }
+                }
+                else{
+
+                }
+
+            },Response.ErrorListener {
+
+            })
+            {
+                override fun getParams(): MutableMap<String, String> {
+                    val params = HashMap<String, String>()
+
+                    return params
+                }
+            }
+            q.add(stringRequest)
+        }
+
         username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME).toString()
 
         val q = Volley.newRequestQueue(this)
